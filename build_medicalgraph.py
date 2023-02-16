@@ -12,11 +12,7 @@ class MedicalGraph:
     def __init__(self):
         cur_dir = '/'.join(os.path.abspath(__file__).split('/')[:-1])
         self.data_path = os.path.join(cur_dir, 'data/medical.json')
-        self.g = Graph(
-            host="127.0.0.1",  # neo4j 搭载服务器的ip地址，ifconfig可获取到
-            http_port=7474,  # neo4j 服务器监听的端口号
-            user="lhy",  # 数据库user name，如果没有更改过，应该是neo4j
-            password="lhy123")
+        self.g = Graph("http://localhost:7474/", auth=("neo4j", "jtj456.-+"),name='neo4j')
 
     '''读取文件'''
     def read_nodes(self):
@@ -47,7 +43,7 @@ class MedicalGraph:
 
 
         count = 0
-        for data in open(self.data_path):
+        for data in open(self.data_path,encoding='utf-8'):
             disease_dict = {}
             count += 1
             print(count)
@@ -237,13 +233,13 @@ class MedicalGraph:
     '''导出数据'''
     def export_data(self):
         Drugs, Foods, Checks, Departments, Producers, Symptoms, Diseases, disease_infos, rels_check, rels_recommandeat, rels_noteat, rels_doeat, rels_department, rels_commonddrug, rels_drug_producer, rels_recommanddrug, rels_symptom, rels_acompany, rels_category = self.read_nodes()
-        f_drug = open('drug.txt', 'w+')
-        f_food = open('food.txt', 'w+')
-        f_check = open('check.txt', 'w+')
-        f_department = open('department.txt', 'w+')
-        f_producer = open('producer.txt', 'w+')
-        f_symptom = open('symptoms.txt', 'w+')
-        f_disease = open('disease.txt', 'w+')
+        f_drug = open('drug.txt', 'w+',encoding='utf-8')
+        f_food = open('food.txt', 'w+',encoding='utf-8')
+        f_check = open('check.txt', 'w+',encoding='utf-8')
+        f_department = open('department.txt', 'w+',encoding='utf-8')
+        f_producer = open('producer.txt', 'w+',encoding='utf-8')
+        f_symptom = open('symptoms.txt', 'w+',encoding='utf-8')
+        f_disease = open('disease.txt', 'w+',encoding='utf-8')
 
         f_drug.write('\n'.join(list(Drugs)))
         f_food.write('\n'.join(list(Foods)))
