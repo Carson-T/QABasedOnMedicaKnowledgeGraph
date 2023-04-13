@@ -30,7 +30,9 @@ class QuestionClassifier:
         self.region_words = set(self.department_wds + self.disease_wds + self.check_wds + self.drug_wds + self.food_wds + self.producer_wds + self.symptom_wds)
         self.deny_words = [i.strip() for i in open(self.deny_path,encoding='utf-8') if i.strip()]
         # 构造领域actree
+        print("build ACTree")
         self.region_tree = self.build_actree(list(self.region_words))
+        print("finish building")
         # 构建词典
         self.wdtype_dict = self.build_wdtype_dict()
         # 问句疑问词
@@ -60,7 +62,9 @@ class QuestionClassifier:
     '''分类主函数'''
     def classify(self, question):
         data = {}
+        print("check medical")
         medical_dict = self.check_medical(question)
+        print("finish check")
         if not medical_dict:
             return {}
         data['args'] = medical_dict
